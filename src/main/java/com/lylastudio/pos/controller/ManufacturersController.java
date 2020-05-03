@@ -52,7 +52,7 @@ public class ManufacturersController {
 
     @RequestMapping( value = "manufacturers/findByName/{pageNo}/{name}")
     public ResponseEntity<List<MManufacturers>> findByName( @PathVariable( "pageNo" ) int pageNo, @PathVariable( "name" ) String name ){
-        Pageable pageable = PageRequest.of( pageNo, Constant.PAGEABLE_SIZE );
+        Pageable pageable = PageRequest.of( --pageNo, Constant.PAGEABLE_SIZE );
         List<MManufacturers> m = dao.findByNameLike( "%" + name + "%", pageable );
 
         if( m.isEmpty() ){

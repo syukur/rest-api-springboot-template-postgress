@@ -32,7 +32,7 @@ public class CompanyController {
 
     @RequestMapping( value = "/company/findByName/{pageNo}/{name}", method = RequestMethod.GET )
     public ResponseEntity<List<MCompany>> findByName( @PathVariable( "pageNo" ) int pageNo, @PathVariable( "name" ) String name ){
-        Pageable pageable = PageRequest.of( pageNo, Constant.PAGEABLE_SIZE );
+        Pageable pageable = PageRequest.of( --pageNo , Constant.PAGEABLE_SIZE );
         List<MCompany> list = dao.findByNameLike(  "%" + name + "%", pageable );
         if ( list.isEmpty() ){
             return  new ResponseEntity<>( HttpStatus.NOT_FOUND );
