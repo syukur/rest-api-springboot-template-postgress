@@ -1,12 +1,12 @@
 package com.lylastudio.pos.entity;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.core.SpringVersion;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity @Table( name = "m_company" )
 public class MCompany {
@@ -32,6 +32,14 @@ public class MCompany {
     @NotEmpty
     @Size( min = 5, max =  25 )
     private String phone;
+
+    @Column( name = "created_date" )
+    @Temporal( TemporalType.TIMESTAMP )
+    private Date createdDate;
+
+    @Column( name = "updated_date" )
+    @Temporal( TemporalType.TIMESTAMP )
+    private Date updatedDate;
 
     public String getId() {
         return id;
@@ -63,5 +71,21 @@ public class MCompany {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
     }
 }

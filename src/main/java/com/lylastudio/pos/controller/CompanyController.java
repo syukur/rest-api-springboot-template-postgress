@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,13 +45,16 @@ public class CompanyController {
     @RequestMapping( value = "/company/add", method = RequestMethod.POST )
     @ResponseStatus( HttpStatus.CREATED )
     public void add( @RequestBody @Valid MCompany c ){
+        c.setCreatedDate( new Date() );
+        c.setUpdatedDate( new Date() );
         dao.save( c );
     }
 
     @RequestMapping( value = "/company/update/{id}", method = RequestMethod.PUT )
     @ResponseStatus( HttpStatus.OK )
     public void update( @PathVariable( "id" ) String id, @RequestBody @Valid MCompany c){
-        c.setId(id);
+        c.setUpdatedDate( new Date() );
+        c.setId( id );
         dao.save( c );
     }
 

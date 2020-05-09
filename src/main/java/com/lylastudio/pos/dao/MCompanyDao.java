@@ -1,7 +1,6 @@
 package com.lylastudio.pos.dao;
 
 import com.lylastudio.pos.entity.MCompany;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
