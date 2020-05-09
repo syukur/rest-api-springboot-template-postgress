@@ -19,9 +19,9 @@ public class HelloController {
     @GetMapping("/pos/hello1")
     public Map<String, Object> hello() {
 
-        MCompany mCompany = new MCompany();
+        /*MCompany mCompany = new MCompany();
         mCompany.setName("Nama");
-        dao.save(mCompany);
+        dao.save(mCompany);*/
 
         Map<String, Object> response = new HashMap<>();
         response.put("UNI", new Date());

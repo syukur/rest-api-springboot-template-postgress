@@ -15,31 +15,32 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping( value = "manufacturers" )
 public class ManufacturersController {
 
     @Autowired
     MManufacturersDao dao;
 
-    @RequestMapping( value = "/manufacturers/add", method = RequestMethod.POST )
+    @RequestMapping( value = "/add", method = RequestMethod.POST )
     @ResponseStatus( HttpStatus.CREATED )
     public void add( @RequestBody @Valid MManufacturers m ){
         dao.save( m );
     }
 
-    @RequestMapping( value = "manufacturers/update/{id}", method =  RequestMethod.PUT )
+    @RequestMapping( value = "/update/{id}", method =  RequestMethod.PUT )
     @ResponseStatus( HttpStatus.OK )
     public void update( @RequestBody @Valid MManufacturers m, @PathVariable( "id" ) String id ){
         m.setId( id );
         dao.save( m );
     }
 
-    @RequestMapping( value = "manufacturers/delete/{id}", method = RequestMethod.DELETE )
+    @RequestMapping( value = "/delete/{id}", method = RequestMethod.DELETE )
     @ResponseStatus( HttpStatus.OK )
     public void delete( @PathVariable( "id" ) String id ){
         dao.deleteById( id );
     }
 
-    @RequestMapping( value = "manufacturers/findByid/{id}")
+    @RequestMapping( value = "/findByid/{id}")
     public ResponseEntity<MManufacturers> getById(@PathVariable( "id" ) String id ){
         Optional<MManufacturers> optional = dao.findById( id );
         if( optional.isPresent() ){
@@ -49,7 +50,7 @@ public class ManufacturersController {
         }
     }
 
-    @RequestMapping( value = "manufacturers/findByName/{pageNo}/{name}")
+    @RequestMapping( value = "/findByName/{pageNo}/{name}")
     public ResponseEntity<List<MManufacturers>> findByName( @PathVariable( "pageNo" ) int pageNo, @PathVariable( "name" ) String name ){
         Pageable pageable = PageRequest.of( --pageNo, Constant.PAGEABLE_SIZE );
         List<MManufacturers> m = dao.findByNameLike( "%" + name + "%", pageable );

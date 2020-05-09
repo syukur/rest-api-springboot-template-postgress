@@ -6,8 +6,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+/*
+* m_company : tabel untuk menyimpan data perusahaan / laundry
+* */
 @Entity @Table( name = "m_company" )
 public class MCompany {
 
@@ -18,7 +23,7 @@ public class MCompany {
     @Column( length = 50 )
     @NotNull
     @NotEmpty
-    @Size( min = 1, max = 30 )
+    @Size( min = 1, max = 50 )
     private String name;
 
     @Column( length = 255 )
@@ -40,6 +45,13 @@ public class MCompany {
     @Column( name = "updated_date" )
     @Temporal( TemporalType.TIMESTAMP )
     private Date updatedDate;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "mcompany"
+    )
+    private List<MBranch> branchList = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -87,5 +99,13 @@ public class MCompany {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public List<MBranch> getBranchList() {
+        return branchList;
+    }
+
+    public void setBranchList(List<MBranch> branchList) {
+        this.branchList = branchList;
     }
 }

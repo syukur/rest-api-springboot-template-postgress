@@ -16,12 +16,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping( value = "company" )
 public class CompanyController {
 
     @Autowired
     private MCompanyDao dao;
 
-    @RequestMapping( value = "/company/findById/{id}", method = RequestMethod.GET )
+    @RequestMapping( value = "/findById/{id}", method = RequestMethod.GET )
     public ResponseEntity<MCompany> findById( @PathVariable("id") String id ){
         Optional<MCompany> optionalMCompany = dao.findById( id );
         if ( optionalMCompany.isPresent() ){
@@ -31,7 +32,7 @@ public class CompanyController {
         }
     }
 
-    @RequestMapping( value = "/company/findByName/{pageNo}/{name}", method = RequestMethod.GET )
+    @RequestMapping( value = "/findByName/{pageNo}/{name}", method = RequestMethod.GET )
     public ResponseEntity<List<MCompany>> findByName( @PathVariable( "pageNo" ) int pageNo, @PathVariable( "name" ) String name ){
         Pageable pageable = PageRequest.of( --pageNo , Constant.PAGEABLE_SIZE );
         List<MCompany> list = dao.findByNameLike(  "%" + name + "%", pageable );
@@ -42,7 +43,7 @@ public class CompanyController {
         }
     }
 
-    @RequestMapping( value = "/company/add", method = RequestMethod.POST )
+    @RequestMapping( value = "/add", method = RequestMethod.POST )
     @ResponseStatus( HttpStatus.CREATED )
     public void add( @RequestBody @Valid MCompany c ){
         c.setCreatedDate( new Date() );
@@ -50,7 +51,7 @@ public class CompanyController {
         dao.save( c );
     }
 
-    @RequestMapping( value = "/company/update/{id}", method = RequestMethod.PUT )
+    @RequestMapping( value = "/update/{id}", method = RequestMethod.PUT )
     @ResponseStatus( HttpStatus.OK )
     public void update( @PathVariable( "id" ) String id, @RequestBody @Valid MCompany c){
         c.setUpdatedDate( new Date() );
@@ -58,7 +59,7 @@ public class CompanyController {
         dao.save( c );
     }
 
-    @RequestMapping( value = "/company/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping( value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseStatus( HttpStatus.OK )
     public void delete ( @PathVariable("id") String id ){
         dao.deleteById( id );
