@@ -4,6 +4,7 @@ import com.lylastudio.pos.Util.Constant;
 import com.lylastudio.pos.dao.MCompanyDao;
 import com.lylastudio.pos.entity.MCompany;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -46,8 +47,9 @@ public class CompanyController {
     @RequestMapping( value = "/add", method = RequestMethod.POST )
     @ResponseStatus( HttpStatus.CREATED )
     public void add( @RequestBody @Valid MCompany c ){
-        c.setCreatedDate( new Date() );
-        c.setUpdatedDate( new Date() );
+        Date now = new Date();
+        c.setCreatedDate( now );
+        c.setUpdatedDate( now );
         dao.save( c );
     }
 
@@ -65,14 +67,14 @@ public class CompanyController {
         dao.deleteById( id );
     }
 
-    /*
-    @RequestMapping( value = "/company/showAll", method = RequestMethod.POST )
+
+    @RequestMapping( value = "/showAll", method = RequestMethod.POST )
     @ResponseStatus( HttpStatus.OK )
-    public Page<MCompany> showAll( Pageable page ){
+    public Page<MCompany> showAll(Pageable page ){
 
         return dao.findAll(page);
     }
 
 
-  */
+
 }

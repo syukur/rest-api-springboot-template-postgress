@@ -1,5 +1,6 @@
 package com.lylastudio.pos.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /*
@@ -48,10 +50,18 @@ public class MCompany {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            mappedBy = "mcompany"
+            //orphanRemoval = true,
+            mappedBy = "mcompany",
+            fetch = FetchType.LAZY
     )
-    private List<MBranch> branchList = new ArrayList<>();
+    @JsonManagedReference
+    public List<MBranch> branchList = new ArrayList<>();
+    //private List<MBranch> branchList = new LinkedHashSet<MBranch>();
+
+    public void addBranch( MBranch branch ){
+        branchList.add( branch );
+        branch.setMcompany( this );
+    }
 
     public String getId() {
         return id;
